@@ -106,35 +106,6 @@ const createSession = async (req, res) => {
       .populate('student', 'name email')
       .populate('mentor', 'name email skills');
 
-    // Send email notification to student (non-blocking call)
-    const emailHtml = `
-      <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
-        <h2>🎓 GyaanSetu - Mentoring Session Scheduled</h2>
-        <p>Hello,</p>
-        <p>Your mentoring session has been successfully scheduled!</p>
-        <ul>
-          <li><strong>Mentor:</strong> ${populatedSession.mentor.name} (${populatedSession.mentor.email})</li>
-          <li><strong>Date & Time:</strong> ${proposedDate.toLocaleString()}</li>
-          <li><strong>Meeting Link:</strong> <a href="${meetingLink}">${meetingLink}</a></li>
-        </ul>
-        <p>Click the link above at the scheduled time to join the 1-on-1 session.</p>
-        <br/>
-        <p>Best regards,<br/>GyaanSetu Team</p>
-      </div>
-    `;
-
-    sendEmail({
-      to: proposal.studentEmail,
-      subject: 'GyaanSetu: Mentoring Session Scheduled',
-      html: emailHtml
-    });
-
-    sendEmail({
-      to: proposal.mentorEmail,
-      subject: 'GyaanSetu: Mentoring Session Scheduled Confirmation',
-      html: emailHtml
-    });
-
     return res.status(201).json({
       success: true,
       message: 'Session scheduled successfully.',
