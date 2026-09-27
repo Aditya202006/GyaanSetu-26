@@ -1,8 +1,16 @@
 import axios from 'axios';
 
-// Create central Axios instance
+// Get base URL from environment or default to relative '/api' path
+let rawBaseURL = import.meta.env.VITE_API_URL || '/api';
+
+// Normalize base URL so it cleanly ends with '/api' without double or missing slashes
+rawBaseURL = rawBaseURL.replace(/\/+$/, '');
+if (!rawBaseURL.endsWith('/api')) {
+  rawBaseURL += '/api';
+}
+
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+  baseURL: rawBaseURL
 });
 
 // Interceptor to attach JWT token to headers if present in localStorage

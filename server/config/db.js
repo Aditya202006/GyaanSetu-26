@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const dns = require('dns');
 
 // Force Node.js to use Google Public DNS (8.8.8.8) to resolve MongoDB Atlas SRV records
-// This fixes the "querySrv ECONNREFUSED" error caused by local ISP/router DNS restrictions.
 try {
   dns.setServers(['8.8.8.8', '8.8.4.4']);
 } catch (err) {
@@ -11,7 +10,7 @@ try {
 
 // Connect to MongoDB database using Mongoose.
 const connectDB = async () => {
-  const targetUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/gyaansetu';
+  const targetUri = process.env.MONGO_URI || 'mongodb+srv://23pa1a05a2_db_user:5WM2PWWnYSMpWLt4@cluster0.tadnbiz.mongodb.net/gyaansetu?retryWrites=true&w=majority';
   
   try {
     console.log(`Connecting to MongoDB...`);

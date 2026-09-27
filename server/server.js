@@ -24,12 +24,21 @@ const mentorRoutes = require('./routes/mentorRoutes');
 const proposalRoutes = require('./routes/proposalRoutes');
 const sessionRoutes = require('./routes/sessionRoutes');
 
-// Mount API routes
+// Mount API routes (with dual support for /api/ prefix and direct prefix)
 app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
+
 app.use('/api/users', userRoutes);
+app.use('/users', userRoutes);
+
 app.use('/api/mentors', mentorRoutes);
+app.use('/mentors', mentorRoutes);
+
 app.use('/api/proposals', proposalRoutes);
+app.use('/proposals', proposalRoutes);
+
 app.use('/api/sessions', sessionRoutes);
+app.use('/sessions', sessionRoutes);
 
 // Health check endpoint
 app.get('/', (req, res) => {
@@ -43,7 +52,7 @@ app.get('/', (req, res) => {
 app.use((req, res) => {
   res.status(404).json({
     success: false,
-    message: 'Route not found.'
+    message: 'Route not found. Please verify API endpoint.'
   });
 });
 
