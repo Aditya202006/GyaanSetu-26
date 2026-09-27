@@ -9,8 +9,9 @@ try {
 }
 
 // Connect to MongoDB database using Mongoose.
+// Reads database connection string strictly from process.env.MONGO_URI
 const connectDB = async () => {
-  const targetUri = process.env.MONGO_URI || 'mongodb+srv://23pa1a05a2_db_user:5WM2PWWnYSMpWLt4@cluster0.tadnbiz.mongodb.net/gyaansetu?retryWrites=true&w=majority';
+  const targetUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/gyaansetu';
   
   try {
     console.log(`Connecting to MongoDB...`);
